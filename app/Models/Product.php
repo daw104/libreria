@@ -17,9 +17,12 @@ class Product extends Model
 
     public function orders(){
        // return $this->belongsToMany('App\Models\Order')->withTimestamps();
-        return $this->belongsToMany('App\Models\Order')->withTimestamps();
+        return $this->belongsToMany('App\Models\Order')->withPivot('quantity')->withTimestamps();
     }
 
 
+    public function suppliers(){
+        return $this->belongsToMany('App\Models\Supplier')->withPivot('quantity')->withTimestamps();
+    }
 
 }

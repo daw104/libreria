@@ -55,12 +55,9 @@ class OrderController extends Controller
 
         //the list of Products for an specific order:
     public function listProduct(Order $order){
-       // return $order;
-        $products = $order->product;
-
-
-        //return response()->json(['message'=>null,'data'=>$products],200);
-        return "entra";
+        $products = $order->products;
+        return response()->json(['message'=>null,'data'=>$products],200);
+       // return "entra";
     }
 
 }

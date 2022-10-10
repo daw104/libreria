@@ -5,26 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Supplier extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'user_id',
-
+        'name',
+        'location',
     ];
-
-    //funcion para usarios
-    public function user(){
-        return $this->belongsTo('App\Models\User');
-    }
-
 
     public function products(){
         return $this->belongsToMany('App\Models\Product')->withPivot('quantity')->withTimestamps();
-       // return $this->belongsToMany('App\Models\Product')->withPivot('product_id')->withTimestamps();
     }
-
-
 
 
 }

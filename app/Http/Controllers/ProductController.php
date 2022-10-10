@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -107,17 +108,38 @@ class ProductController extends Controller
 
 
 
-
-    //Listar ordenes para un determinado producto
+    //listar los productos asociados a una orden
     public function listOrder(Product $product){
-        //$orders = $product->orders;
-        //return response()->json(['message'=>null,'data'=>$orders],200);
-        return "entra";
+        $orders = $product->orders;
+        return response()->json(['message'=>"Estan son las ordenes para el producto seleccionado",'data'=>$orders],200);
+        //return "entra";
+    }
+
+    //Registrar la orden de un detalle producto_supplier
+    public function registerProductSupplierDetail(Request $request,  Product $product, Supplier $supplier){
+        //return "entra";
+
+        $quantity = '';
+        if($request->quantity){
+            $quantity = $request->quantity;
+        }
+        if($product->suppliers()->save($supplier, array('quantity' => $quantity))){
+            return response()->json(['message'=>'Se ha Ordenado un Producto - Supplier satisfactoriamente','data'=>$supplier],200);
+        }
+        return response()->json(['message'=>'Error','data'=>null],400);
+
     }
 
 
+    //listar los distribuidores que venden un producto
+    public function listSupplierstsOfProducts(Product $product){
+        $suppliers = $product->suppliers;
+        return response()->json(['message'=>"Estan son los Distribuidores que venden este producto",'data'=>$suppliers],200);
+    }
 
-
-
+    //Mostrar todos los distribuidores
+    public  function showSuppliers(Supplier $supplier){
+        return response()->json(['message'=>'','data'=>$supplier],200);
+    }
 
 }

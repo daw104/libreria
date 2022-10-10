@@ -3,6 +3,7 @@
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,7 +56,14 @@ Route::controller(OrderController::class)->group(function() {
 Route::controller(ProductController::class)->group(function() {
     Route::post('product', 'storeProduct');
     Route::get('product/{product}/orders', 'listOrder');
-
+    //rutas de los suppliers
+    Route::post('product/{product}/supplier/{supplier}/product', 'registerProductSupplierDetail');
+    Route::get('product/{product}/suppliers', 'listSupplierstsOfProducts');
 });
 
-
+//Ruta SupplierController
+Route::controller(SupplierController::class)->group(function() {
+    Route::post('supplier', 'registerSupplier');
+    Route::get('supplier/{supplier}/products', 'listProductsOfSuppliers');
+    Route::get('supplier/{supplier}', 'showSuppliers');
+});
